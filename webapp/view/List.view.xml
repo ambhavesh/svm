@@ -10,7 +10,7 @@
 >
     <f:DynamicPage id="page">
         <f:title>
-            <f:DynamicPageTitle id="pageTitle">
+            <f:DynamicPageTitle>
                 <f:heading>
                     <svm:SmartVariantManagement
                         id="smartVariant"

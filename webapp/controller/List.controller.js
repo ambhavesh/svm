@@ -6,7 +6,7 @@ sap.ui.define([
 
     return Controller.extend("manageproduct.controller.List", {
 
-        onInit() {
+        onInit: function () {
             this.getOwnerComponent().getModel("ui").setProperty("/editEnabled", false);
         },
 
