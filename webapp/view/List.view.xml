@@ -1,0 +1,176 @@
+<mvc:View
+    xmlns:core="sap.ui.core"
+    controllerName="manageproduct.controller.List"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:svm="sap.ui.comp.smartvariants"
+    xmlns:st="sap.ui.comp.smarttable"
+    xmlns:sfb="sap.ui.comp.smartfilterbar"
+>
+    <f:DynamicPage id="page">
+        <f:title>
+            <f:DynamicPageTitle id="pageTitle">
+                <f:heading>
+                    <svm:SmartVariantManagement
+                        id="smartVariant"
+                        persistencyKey="manageproduct.svm.pkey"
+                    />
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader>
+                <sfb:SmartFilterBar
+                    id="smartFilterBar"
+                    persistencyKey="manageproduct.filter.pkey"
+                    entitySet="Products"
+                    smartVariant="smartVariant"
+                    navigationProperties=""
+                    useProvidedNavigationProperties="true"
+                >
+                    <sfb:controlConfiguration>
+                        <sfb:ControlConfiguration
+                            key="ID"
+                            visibleInAdvancedArea="true"
+                            preventInitialDataFetchInValueHelpDialog="false"
+                        />
+                        <sfb:ControlConfiguration
+                            key="Name"
+                            visibleInAdvancedArea="true"
+                            preventInitialDataFetchInValueHelpDialog="false"
+                        />
+                    </sfb:controlConfiguration>
+                </sfb:SmartFilterBar>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+            <st:SmartTable
+                id="smartTable"
+                entitySet="Products"
+                header="Products"
+                smartFilterId="smartFilterBar"
+                tableType="ResponsiveTable"
+                beforeRebindTable="onBeforeRebindTable"
+                smartVariant="smartVariant"
+                persistencyKey="manageproduct.table.pkey"
+                enableCopy="false"
+                enableExport="true"
+                enableAutoColumnWidth="true"
+                enableAutoBinding="true"
+            >
+                <st:customToolbar>
+                    <OverflowToolbar>
+                        <ToolbarSpacer />
+                        <Button
+                            text="Modify Rating"
+                            enabled="{ui>/editEnabled}"
+                            press="onModifyRatingPress"
+                        />
+                    </OverflowToolbar>
+                </st:customToolbar>
+                <Table
+                    id="productsTable"
+                    mode="MultiSelect"
+                    selectionChange="onSelectionChange"
+                >
+                    <columns>
+                        <Column>
+                            <customData>
+                                <core:CustomData
+                                    key="p13nData"
+                                    value='{"columnKey": "ID", "leadingProperty": "ID"}'
+                                />
+                            </customData>
+                            <header>
+                                <Label text="Id" />
+                            </header>
+                        </Column>
+                        <Column>
+                            <customData>
+                                <core:CustomData
+                                    key="p13nData"
+                                    value='{"columnKey": "Name", "leadingProperty": "Name"}'
+                                />
+                            </customData>
+                            <header>
+                                <Label text="Product Name" />
+                            </header>
+                        </Column>
+                        <Column>
+                            <customData>
+                                <core:CustomData
+                                    key="p13nData"
+                                    value='{"columnKey": "Description", "leadingProperty": "Description"}'
+                                />
+                            </customData>
+                            <header>
+                                <Label text="Description" />
+                            </header>
+                        </Column>
+                        <Column>
+                            <customData>
+                                <core:CustomData
+                                    key="p13nData"
+                                    value='{"columnKey": "ReleaseDate", "leadingProperty": "ReleaseDate"}'
+                                />
+                            </customData>
+                            <header>
+                                <Label text="Released On" />
+                            </header>
+                        </Column>
+                        <Column>
+                            <customData>
+                                <core:CustomData
+                                    key="p13nData"
+                                    value='{"columnKey": "DiscontinuedDate", "leadingProperty": "DiscontinuedDate"}'
+                                />
+                            </customData>
+                            <header>
+                                <Label text="Discontinued On" />
+                            </header>
+                        </Column>
+                        <Column>
+                            <customData>
+                                <core:CustomData
+                                    key="p13nData"
+                                    value='{"columnKey": "Rating", "leadingProperty": "Rating"}'
+                                />
+                            </customData>
+                            <header>
+                                <Label text="Rating" />
+                            </header>
+                        </Column>
+                        <Column visible="false">
+                            <customData>
+                                <core:CustomData
+                                    key="p13nData"
+                                    value='{"columnKey": "Price", "leadingProperty": "Price"}'
+                                />
+                            </customData>
+                            <header>
+                                <Label text="Cost" />
+                            </header>
+                        </Column>
+                    </columns>
+                    <ColumnListItem>
+                        <Text text="{ID}" />
+                        <Text text="{Name}" />
+                        <Text text="{Description}" />
+                        <Text
+                            text="{path:'ReleaseDate',type:'sap.ui.model.type.Date',formatOptions:{pattern:'dd-MM-yyyy'}}"
+                        />
+                        <Text
+                            text="{path:'DiscontinuedDate',type:'sap.ui.model.type.Date',formatOptions:{pattern:'dd-MM-yyyy'}}"
+                        />
+                        <Input
+                            value="{Rating}"
+                            enabled="false"
+                        />
+                        <Text text="{Price}" />
+                    </ColumnListItem>
+                </Table>
+            </st:SmartTable>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>
